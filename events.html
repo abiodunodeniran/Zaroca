@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upcoming Events | Zoroca Wear</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="script.js" defer></script>
+    <style>
+        /* Events Page Styles */
+        .events-section {
+            padding: 3rem 0;
+        }
+        
+        .events-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .event-card {
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            border: 1px solid #eee;
+        }
+        
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .event-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .event-content {
+            padding: 1.5rem;
+        }
+        
+        .event-date {
+            display: inline-block;
+            background-color: #b8860b;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .event-title {
+            font-size: 1.4rem;
+            margin-bottom: 0.75rem;
+            color: #222;
+            line-height: 1.3;
+        }
+        
+        .event-description {
+            color: #666;
+            margin-bottom: 1.25rem;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        
+        .event-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            color: #555;
+            font-size: 0.9rem;
+        }
+        
+        .event-detail {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .event-detail i {
+            color: #b8860b;
+            font-size: 1rem;
+        }
+        
+        .event-status {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+        
+        .status-available {
+            background-color: #e8f5e8;
+            color: #2e7d32;
+        }
+        
+        .status-limited {
+            background-color: #fff3e0;
+            color: #ef6c00;
+        }
+        
+        .status-soldout {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+        
+        /* Countdown Section */
+        .countdown-section {
+            background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .countdown-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .countdown-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.5;
+        }
+        
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        
+        .countdown-item {
+            background: rgba(255,255,255,0.1);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            min-width: 80px;
+        }
+        
+        .countdown-number {
+            font-size: 2rem;
+            font-weight: 700;
+            display: block;
+            line-height: 1;
+        }
+        
+        .countdown-label {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 0.5rem;
+        }
+        
+        /* Event Filters */
+        .event-filters {
+            padding: 2rem 0;
+            background-color: #f9f9f9;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 2rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            color: #555;
+            font-family: 'Raleway', sans-serif;
+            font-size: 0.9rem;
+        }
+        
+        .filter-btn:hover {
+            border-color: #b8860b;
+            color: #b8860b;
+        }
+        
+        .filter-btn.active {
+            background-color: #b8860b;
+            color: white;
+            border-color: #b8860b;
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://via.placeholder.com/1600x500/cccccc/333333?text=Fashion+Events');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            width: 100%;
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.2;
+        }
+        
+        .page-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+        
+        /* Empty State */
+        .no-events {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+        }
+        
+        .no-events i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #ddd;
+        }
+        
+        /* Responsive */
+        @media (min-width: 768px) {
+            .events-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+            
+            .event-image {
+                height: 250px;
+            }
+            
+            .countdown-item {
+                min-width: 100px;
+                padding: 1.25rem;
+            }
+            
+            .countdown-number {
+                font-size: 2.5rem;
+            }
+            
+            .page-header {
+                padding: 4rem 1rem;
+            }
+            
+            .page-title {
+                font-size: 3rem;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .events-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .event-image {
+                height: 200px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .filter-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .filter-btn {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .countdown-timer {
+                gap: 0.5rem;
+            }
+            
+            .countdown-item {
+                min-width: 70px;
+                padding: 0.75rem;
+            }
+            
+            .countdown-number {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== MARQUEE ===== -->
+    <div class="marquee-container">
+        <div class="marquee-content">
+            <span>🌟 NEW: "Ethereal Spring" Collection Launching March 30 | Exclusive Preview for Members</span>
+            <span>🎫 Zoroca Wear at Paris Fashion Week | April 15–20 | Limited Seats Available</span>
+            <span>✨ Book a Private Styling Session & Get 15% Off Your First Purchase</span>
+        </div>
+    </div>
+
+    <!-- ===== HEADER & NAV ===== -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="nav-top">
+                    <div class="logo" style="display: flex; align-items: center; gap: 12px;">
+                        <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #000000, #333333); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #d4af37; font-weight: bold; font-size: 24px; font-family: 'Playfair Display', serif;">
+                            ZW
+                        </div>
+                        <div style="font-family: 'Playfair Display', serif; font-weight: 700; color: #222; line-height: 1.1;">
+                            <div style="font-size: 24px;">Zaroca</div>
+                            <div style="font-size: 14px; letter-spacing: 3px; color: #666;">WEAR</div>
+                        </div>
+                    </div>
+                    <button class="mobile-menu-btn hamburger" aria-label="Toggle menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+
+                <ul class="nav-menu">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="products.html"><i class="fas fa-tshirt"></i> Collections</a></li>
+                    <li><a href="trustees.html"><i class="fas fa-users"></i> Trustees</a></li>
+                    <li><a href="inquiries.html"><i class="fas fa-calendar-check"></i> Appointments</a></li>
+                    <li><a href="events.html" class="active"><i class="fas fa-calendar-alt"></i> Events</a></li>
+                </ul>
+
+                <div class="nav-actions">
+                    <a href="inquiries.html" class="btn-primary">Book Consultation</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-content">
+        <!-- Page Header -->
+        <section class="page-header">
+            <div class="container">
+                <h1 class="page-title">Upcoming Events</h1>
+                <p class="page-subtitle">Experience fashion in motion at our exclusive events and runway shows</p>
+            </div>
+        </section>
+
+        <!-- Countdown to Next Event -->
+        <section class="countdown-section">
+            <div class="container">
+                <h2 class="countdown-title">Next Major Event</h2>
+                <p class="countdown-subtitle">"Ethereal Spring" Collection Launch - An exclusive evening of fashion, art, and innovation</p>
+                
+                <div class="countdown-timer" id="countdownTimer">
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="days">00</span>
+                        <span class="countdown-label">Days</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="hours">00</span>
+                        <span class="countdown-label">Hours</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="minutes">00</span>
+                        <span class="countdown-label">Minutes</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="seconds">00</span>
+                        <span class="countdown-label">Seconds</span>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 1.5rem;">
+                    <a href="inquiries.html" class="btn-primary" style="max-width: 200px; margin: 0 auto; display: inline-block;">
+                        Book Your Seat
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Event Filters -->
+        <section class="section event-filters">
+            <div class="container">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All Events</button>
+                    <button class="filter-btn" data-filter="runway">Runway Shows</button>
+                    <button class="filter-btn" data-filter="exhibition">Exhibitions</button>
+                    <button class="filter-btn" data-filter="workshop">Workshops</button>
+                    <button class="filter-btn" data-filter="charity">Charity Events</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Events Grid -->
+        <section class="section events-section">
+            <div class="container">
+                <div class="events-container" id="eventsContainer">
+                    <!-- Events will be loaded by JavaScript -->
+                </div>
+                
+                <!-- Empty State (hidden by default) -->
+                <div class="no-events" id="noEvents" style="display: none;">
+                    <i class="fas fa-calendar-times"></i>
+                    <h3>No Events Found</h3>
+                    <p>There are currently no events in this category. Check back soon!</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>Zoroca Wear</h3>
+                    <p>Redefining luxury fashion since 2025.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Collections</a></li>
+                        <li><a href="trustees.html">Our Trustees</a></li>
+                        <li><a href="inquiries.html">Book Appointment</a></li>
+                        <li><a href="events.html">Events Calendar</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-map-marker-alt"></i>  13 ibadan , Nigeria</p>
+                    <p><i class="fas fa-phone"></i> +2348106901310</p>
+                    <p><i class="fas fa-envelope"></i> zaroca@gmail.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Zoroca Wear. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Events data (simplified - no registration buttons)
+        const events = [
+            {
+                id: 1,
+                title: "Ethereal Spring Collection Launch",
+                date: "2026-03-30",
+                time: "19:00",
+                location: "Zoroca Flagship Store, Nigeria",
+                category: "runway",
+                description: "An exclusive evening unveiling our Spring 2025 collection. Experience fashion as art with live music, cocktails, and first access to new designs.",
+                price: "$150",
+                seats: 120,
+                status: "available"
+            },
+            {
+                id: 2,
+                title: "Sustainable Fashion Workshop",
+                date: "2026-04-05",
+                time: "14:00",
+                location: "Zoroca Design Studio",
+                category: "workshop",
+                description: "Learn about sustainable fabrics, upcycling techniques, and eco-friendly fashion practices from our lead designers.",
+                price: "Free",
+                seats: 30,
+                status: "limited"
+            },
+            {
+                id: 3,
+                title: "Paris Fashion Week Showcase",
+                date: "2026-04-15",
+                time: "20:30",
+                location: "Grand Palais, Nigeria",
+                category: "runway",
+                description: "Zoroca Wear makes its Paris Fashion Week debut with an avant-garde collection inspired by modern architecture.",
+                price: "$500",
+                seats: 300,
+                status: "available"
+            },
+            {
+                id: 4,
+                title: "Art & Fashion Exhibition",
+                date: "2026-04-22",
+                time: "10:00",
+                location: "Metropolitan Art Gallery",
+                category: "exhibition",
+                description: "A month-long exhibition exploring the intersection of fashion design and contemporary art.",
+                price: "$25",
+                seats: "Unlimited",
+                status: "available"
+            },
+            {
+                id: 5,
+                title: "Charity Gala for Fashion Education",
+                date: "2026-05-10",
+                time: "18:30",
+                location: "The Plaza Hotel, Nigeria",
+                category: "charity",
+                description: "Black-tie event with silent auction, celebrity guests, and runway show. All proceeds fund fashion education scholarships.",
+                price: "$350",
+                seats: 200,
+                status: "soldout"
+            },
+            {
+                id: 6,
+                title: "Designer Masterclass Series",
+                date: "2026-05-20",
+                time: "11:00",
+                location: "Zoroca Creative Hub",
+                category: "workshop",
+                description: "Three-day intensive masterclass on luxury fashion design, pattern making, and brand development.",
+                price: "$899",
+                seats: 15,
+                status: "limited"
+            }
+        ];
+
+        // Initialize events
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('eventsContainer');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const noEventsMessage = document.getElementById('noEvents');
+            
+            // Get status class based on availability
+            function getStatusClass(status) {
+                switch(status) {
+                    case 'available': return 'status-available';
+                    case 'limited': return 'status-limited';
+                    case 'soldout': return 'status-soldout';
+                    default: return 'status-available';
+                }
+            }
+            
+            // Get status text
+            function getStatusText(status) {
+                switch(status) {
+                    case 'available': return 'Available';
+                    case 'limited': return 'Limited Seats';
+                    case 'soldout': return 'Sold Out';
+                    default: return 'Available';
+                }
+            }
+            
+            // Display events
+            function displayEvents(filter = 'all') {
+                container.innerHTML = '';
+                const filteredEvents = filter === 'all' 
+                    ? events 
+                    : events.filter(e => e.category === filter);
+                
+                // Show/hide empty state
+                if (filteredEvents.length === 0) {
+                    noEventsMessage.style.display = 'block';
+                    container.style.display = 'none';
+                    return;
+                } else {
+                    noEventsMessage.style.display = 'none';
+                    container.style.display = 'grid';
+                }
+                
+                filteredEvents.forEach(event => {
+                    const eventDate = new Date(event.date);
+                    const formattedDate = eventDate.toLocaleDateString('en-US', { 
+                        weekday: 'long', 
+                        year: 'numeric', 
+                        month: 'long', 
+                        day: 'numeric' 
+                    });
+                    
+                    const statusClass = getStatusClass(event.status);
+                    const statusText = getStatusText(event.status);
+                    
+                    const eventCard = document.createElement('div');
+                    eventCard.className = 'event-card';
+                    eventCard.innerHTML = `
+                        <div class="event-content">
+                            <div class="event-date">${formattedDate}</div>
+                            <h3 class="event-title">${event.title}</h3>
+                            <p class="event-description">${event.description}</p>
+                            
+                            <div class="event-details">
+                                <div class="event-detail">
+                                    <i class="fas fa-clock"></i>
+                                    <span>${event.time}</span>
+                                </div>
+                                <div class="event-detail">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>${event.location}</span>
+                                </div>
+                                <div class="event-detail">
+                                    <i class="fas fa-tag"></i>
+                                    <span>${event.price}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="event-status ${statusClass}">
+                                ${statusText}
+                            </div>
+                        </div>
+                    `;
+                    
+                                       container.appendChild(eventCard);
+                });
+            }
+            
+            // Filter events
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    const filter = this.getAttribute('data-filter');
+                    displayEvents(filter);
+                });
+            });
+            
+            // Countdown timer
+            function updateCountdown() {
+                const targetDate = new Date('2025-03-30T19:00:00').getTime();
+                const now = new Date().getTime();
+                const difference = targetDate - now;
+                
+                if (difference > 0) {
+                    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+                    
+                    document.getElementById('days').textContent = days.toString().padStart(2, '0');
+                    document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                    document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                    document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+                } else {
+                    document.getElementById('countdownTimer').innerHTML = 
+                        '<div style="font-size: 1.5rem; padding: 1rem;">🎉 Event is Live Now!</div>';
+                }
+            }
+            
+            // Update countdown every second
+            setInterval(updateCountdown, 1000);
+            updateCountdown(); // Initial call
+            
+            // Initial display
+            displayEvents();
+        });
+    </script>
+</body>
+</html>

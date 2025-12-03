@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collections | Zoroca Wear</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <!-- ===== MARQUEE ===== -->
+    <div class="marquee-container">
+        <div class="marquee-content">
+            <span>🌟 NEW: "Ethereal Spring" Collection Launching March 30 | Exclusive Preview for Members</span>
+            <span>🎫 Zoroca Wear at Paris Fashion Week | April 15–20 | Limited Seats Available</span>
+            <span>✨ Book a Private Styling Session & Get 15% Off Your First Purchase</span>
+        </div>
+    </div>
+
+    <!-- ===== HEADER & NAV ===== -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="nav-top">
+                   <div class="logo" style="display: flex; align-items: center; gap: 12px;">
+                        <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #000000, #333333); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #d4af37; font-weight: bold; font-size: 24px; font-family: 'Playfair Display', serif;">
+                            ZW
+                        </div>
+                        <div style="font-family: 'Playfair Display', serif; font-weight: 700; color: #222; line-height: 1.1;">
+                            <div style="font-size: 24px;">Zaroca</div>
+                            <div style="font-size: 14px; letter-spacing: 3px; color: #666;">WEAR</div>
+                        </div>
+                    </div>
+                    <button class="mobile-menu-btn hamburger" aria-label="Toggle menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+
+                <ul class="nav-menu">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="products.html" class="active"><i class="fas fa-tshirt"></i> Collections</a></li>
+                    <li><a href="trustees.html"><i class="fas fa-users"></i> Trustees</a></li>
+                    <li><a href="inquiries.html"><i class="fas fa-calendar-check"></i> Appointments</a></li>
+                    <li><a href="events.html"><i class="fas fa-calendar-alt"></i> Events</a></li>
+                </ul>
+
+                <div class="nav-actions">
+                    <a href="inquiries.html" class="btn-primary">Book Consultation</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-content">
+        <!-- Page Header -->
+        <section class="page-header">
+            <div class="container">
+                <h1 class="page-title">Our Collections</h1>
+                <p class="page-subtitle">Discover exquisite craftsmanship and timeless designs</p>
+            </div>
+        </section>
+
+        <!-- Collection Filters -->
+        <section class="section collection-filters">
+            <div class="container">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All Collections</button>
+                    <button class="filter-btn" data-filter="women">Women's Wear</button>
+                    <button class="filter-btn" data-filter="men">Men's Wear</button>
+                    <button class="filter-btn" data-filter="accessories">Accessories</button>
+                    <button class="filter-btn" data-filter="limited">Limited Edition</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Grid -->
+        <section class="section products-section">
+            <div class="container">
+                <div class="products-grid" id="productsContainer">
+                    <!-- Products will be loaded by JavaScript -->
+                </div>
+                <div class="text-center">
+                    <button class="btn-secondary" id="loadMoreBtn">Load More</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Collection Highlight -->
+        <section class="section highlight-section">
+            <div class="container">
+                <div class="highlight-content">
+                    <h2>Spring '25 Collection</h2>
+                    <p>Experience the harmony of nature and luxury in our latest collection. Inspired by blooming gardens and morning dew.</p>
+                    <a href="inquiries.html" class="btn-primary">Book Private Viewing</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>Zoroca Wear</h3>
+                    <p>Redefining luxury fashion since 2025.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Collections</a></li>
+                        <li><a href="trustees.html">Our Trustees</a></li>
+                        <li><a href="inquiries.html">Book Appointment</a></li>
+                        <li><a href="events.html">Events Calendar</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-map-marker-alt"></i>  13 ibadan , Nigeria</p>
+                    <p><i class="fas fa-phone"></i> +2348106901310</p>
+                    <p><i class="fas fa-envelope"></i> zaroca@gmail.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Zoroca Wear. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Products data
+        const products = [
+            { id: 1, name: "Silk Evening Gown", price: "$1,899", category: "women", image:  "https://images.unsplash.com/photo-1595777457583-95e059d581b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+            { id: 2, name: "Wool Blend Suit", price: "$1,299", category: "men", image:  "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80 "},
+            { id: 3, name: "Diamond Necklace", price: "$3,500", category: "accessories", image:  "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"},
+            { id: 4, name: "Leather Handbag", price: "$899", category: "accessories", image:  "https://images.unsplash.com/photo-1584917865442-de89df76afd3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"},
+            { id: 5, name: "Cashmere Coat", price: "$1,599", category: "women", image: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+            { id: 6, name: "Limited Edition Top", price: "$4,999", category: "limited", image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+            { id: 7, name: "Women purse", price: "$499", category: "women", image: "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+            { id: 8, name: "Designer Sunglasses", price: "$350", category: "accessories", image:  "https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"  },
+            { id: 9, name: "casual top", price: "$2,299", category: "women", image: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+            { id: 10, name: "Leather Jacket", price: "$899", category: "men", image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"},
+            { id: 11, name: "Pearl Earrings", price: "$650", category: "accessories", image:  "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+            { id: 12, name: "Limited Edition Gown", price: "$5,999", category: "limited", image: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+ }
+        ];
+
+        // Initialize products
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('productsContainer');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            let currentFilter = 'all';
+            let visibleCount = 6;
+
+            // Display products
+            function displayProducts(filter = 'all', count = visibleCount) {
+                container.innerHTML = '';
+                const filteredProducts = filter === 'all' 
+                    ? products 
+                    : products.filter(p => p.category === filter);
+                
+                const productsToShow = filteredProducts.slice(0, count);
+                
+                productsToShow.forEach(product => {
+                    const productCard = document.createElement('div');
+                    productCard.className = 'product-card';
+                    productCard.innerHTML = `
+                        <div class="product-image-container">
+                            <img src="${product.image}" alt="${product.name}" class="product-image">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">${product.name}</h3>
+                            <p class="product-price">${product.price}</p>
+                        </div>
+                    `;
+                    container.appendChild(productCard);
+                });
+
+                // Show/hide load more button
+                loadMoreBtn.style.display = filteredProducts.length > count ? 'block' : 'none';
+            }
+
+            // Filter products
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    currentFilter = this.getAttribute('data-filter');
+                    visibleCount = 6;
+                    displayProducts(currentFilter, visibleCount);
+                });
+            });
+
+            // Load more products
+            loadMoreBtn.addEventListener('click', function() {
+                visibleCount += 6;
+                displayProducts(currentFilter, visibleCount);
+            });
+
+            // View product details
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('product-view-btn')) {
+                    const productId = e.target.getAttribute('data-id');
+                    const product = products.find(p => p.id == productId);
+                    if (product) {
+                        alert(`Product: ${product.name}\nPrice: ${product.price}\nCategory: ${product.category}\n\nDetails: This exquisite piece showcases exceptional craftsmanship and premium materials.`);
+                    }
+                }
+            });
+
+            // Initial display
+            displayProducts();
+        });
+    </script>
+</body>
+</html>

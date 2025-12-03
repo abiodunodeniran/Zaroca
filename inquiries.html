@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment | Zoroca Wear</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="script.js" defer></script>
+    <style>
+    /* Additional styles for Inquiries page */
+    .inquiry-section {
+        padding: 3rem 0;
+    }
+    
+    .inquiry-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        width: 100%;
+        margin: 0 auto;
+    }
+    
+    .inquiry-form-container {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 1rem;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        width: 100%;
+        order: 2; /* Form comes second on mobile */
+    }
+    
+    .inquiry-info {
+        background: #f9f9f9;
+        padding: 1.5rem;
+        border-radius: 1rem;
+        width: 100%;
+        order: 1; /* Info comes first on mobile */
+    }
+    
+    .form-group {
+        margin-bottom: 1.25rem;
+        width: 100%;
+    }
+    
+    .form-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: #333;
+        font-size: 0.95rem;
+    }
+    
+    .form-control {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ddd;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        font-family: 'Raleway', sans-serif;
+        transition: all 0.3s;
+        background-color: white;
+    }
+    
+    .form-control:focus {
+        border-color: #b8860b;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.1);
+    }
+    
+    textarea.form-control {
+        min-height: 120px;
+        resize: vertical;
+        line-height: 1.5;
+    }
+    
+    select.form-control {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23555' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 0.75rem center;
+        background-size: 16px 12px;
+        padding-right: 2.5rem;
+    }
+    
+    .form-submit {
+        background-color: #b8860b;
+        color: white;
+        border: none;
+        padding: 0.875rem 1.5rem;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        width: 100%;
+        transition: all 0.3s;
+        margin-top: 0.5rem;
+    }
+    
+    .form-submit:hover {
+        background-color: #9a7009;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(184, 134, 11, 0.2);
+    }
+    
+    .form-submit:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+    }
+    
+    .info-item {
+        margin-bottom: 1.5rem;
+    }
+    
+    .info-item h3 {
+        color: #b8860b;
+        margin-bottom: 0.75rem;
+        font-size: 1.1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .info-item p {
+        color: #666;
+        line-height: 1.6;
+        font-size: 0.95rem;
+        padding-left: 1.75rem;
+    }
+    
+    .calendar-widget {
+        background: white;
+        padding: 1.25rem;
+        border-radius: 0.75rem;
+        margin-top: 2rem;
+        text-align: center;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    }
+    
+    .calendar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+    
+    .calendar-header button {
+        background: none;
+        border: none;
+        font-size: 1rem;
+        color: #666;
+        cursor: pointer;
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.25rem;
+        transition: all 0.3s;
+    }
+    
+    .calendar-header button:hover {
+        background-color: #f0f0f0;
+        color: #b8860b;
+    }
+    
+    #currentWeek {
+        font-weight: 600;
+        color: #333;
+        font-size: 0.95rem;
+    }
+    
+    .calendar-days {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 0.375rem;
+        margin-bottom: 1rem;
+    }
+    
+    .calendar-day {
+        padding: 0.5rem 0.25rem;
+        text-align: center;
+        border-radius: 0.25rem;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: all 0.3s;
+        min-height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .calendar-day:hover {
+        background-color: #f0f0f0;
+    }
+    
+    .calendar-day.selected {
+        background-color: #b8860b;
+        color: white;
+    }
+    
+    .time-slots {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+        margin-top: 1rem;
+    }
+    
+    .time-slot {
+        padding: 0.5rem;
+        border: 1px solid #ddd;
+        border-radius: 0.25rem;
+        text-align: center;
+        cursor: pointer;
+        font-size: 0.85rem;
+        transition: all 0.3s;
+    }
+    
+    .time-slot:hover {
+        background-color: #f0f0f0;
+    }
+    
+    .time-slot.selected {
+        background-color: #b8860b;
+        color: white;
+        border-color: #b8860b;
+    }
+    
+    .page-header {
+        background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                    url('https://via.placeholder.com/1600x500/cccccc/333333?text=Private+Consultation');
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 3rem 1rem;
+        text-align: center;
+        margin-bottom: 2rem;
+        width: 100%;
+    }
+    
+    .page-title {
+        font-size: 2rem;
+        margin-bottom: 0.75rem;
+        line-height: 1.2;
+    }
+    
+    .page-subtitle {
+        font-size: 1.1rem;
+        opacity: 0.9;
+        max-width: 600px;
+        margin: 0 auto;
+        line-height: 1.5;
+    }
+    
+    /* Success message */
+    .success-message {
+        display: none;
+        background-color: #d4edda;
+        color: #155724;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin-top: 1rem;
+        text-align: center;
+        font-size: 0.95rem;
+        border: 1px solid #c3e6cb;
+    }
+    
+    .success-message.show {
+        display: block;
+        animation: fadeIn 0.5s ease-in-out;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Tablet */
+    @media (min-width: 768px) {
+        .inquiry-section {
+            padding: 4rem 0;
+        }
+        
+        .inquiry-container {
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+        
+        .inquiry-form-container {
+            padding: 2rem;
+            order: 1; /* Form first on tablet/desktop */
+        }
+        
+        .inquiry-info {
+            padding: 2rem;
+            order: 2; /* Info second on tablet/desktop */
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .time-slots {
+            grid-template-columns: repeat(4, 1fr);
+        }
+        
+        .page-header {
+            padding: 4rem 1rem;
+            margin-bottom: 3rem;
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+        }
+        
+        .calendar-day {
+            padding: 0.5rem;
+            min-height: 45px;
+        }
+    }
+    
+    /* Desktop */
+    @media (min-width: 1024px) {
+        .inquiry-container {
+            gap: 4rem;
+        }
+        
+        .inquiry-form-container {
+            padding: 2.5rem;
+        }
+        
+        .inquiry-info {
+            padding: 2.5rem;
+        }
+        
+        .page-title {
+            font-size: 3rem;
+        }
+        
+        .calendar-days {
+            gap: 0.5rem;
+        }
+    }
+    
+    /* Form validation styles */
+    .form-control.error {
+        border-color: #dc3545;
+        background-color: #fff5f5;
+    }
+    
+    .error-message {
+        color: #dc3545;
+        font-size: 0.85rem;
+        margin-top: 0.25rem;
+        display: none;
+    }
+    
+    .error-message.show {
+        display: block;
+    }
+    
+    /* Loading spinner */
+    #loadingSpinner {
+        display: none;
+    }
+    
+    #loadingSpinner.show {
+        display: inline;
+    }
+    
+    /* Make sure everything is properly contained */
+    .container {
+        width: 100%;
+        padding: 0 1rem;
+    }
+    
+    /* Fix for date input on mobile */
+    input[type="date"].form-control {
+        min-height: 44px; /* Better touch target on mobile */
+    }
+    
+    /* Ensure proper spacing */
+    h2 {
+        margin-bottom: 1.5rem;
+        color: #222;
+        font-size: 1.5rem;
+    }
+    
+    /* Improve button alignment */
+    .form-submit {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+</style>
+</head>
+<body>
+    <!-- ===== MARQUEE ===== -->
+    <div class="marquee-container">
+        <div class="marquee-content">
+            <span>🌟 NEW: "Ethereal Spring" Collection Launching March 30 | Exclusive Preview for Members</span>
+            <span>🎫 Zoroca Wear at Paris Fashion Week | April 15–20 | Limited Seats Available</span>
+            <span>✨ Book a Private Styling Session & Get 15% Off Your First Purchase</span>
+        </div>
+    </div>
+
+    <!-- ===== HEADER & NAV ===== -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="nav-top">
+                   <div class="logo" style="display: flex; align-items: center; gap: 12px;">
+                        <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #000000, #333333); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #d4af37; font-weight: bold; font-size: 24px; font-family: 'Playfair Display', serif;">
+                            ZW
+                        </div>
+                        <div style="font-family: 'Playfair Display', serif; font-weight: 700; color: #222; line-height: 1.1;">
+                            <div style="font-size: 24px;">Zaroca</div>
+                            <div style="font-size: 14px; letter-spacing: 3px; color: #666;">WEAR</div>
+                        </div>
+                    </div>
+                                        <button class="mobile-menu-btn hamburger" aria-label="Toggle menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+
+                <ul class="nav-menu">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="products.html"><i class="fas fa-tshirt"></i> Collections</a></li>
+                    <li><a href="trustees.html"><i class="fas fa-users"></i> Trustees</a></li>
+                    <li><a href="inquiries.html" class="active"><i class="fas fa-calendar-check"></i> Appointments</a></li>
+                    <li><a href="events.html"><i class="fas fa-calendar-alt"></i> Events</a></li>
+                </ul>
+
+                <div class="nav-actions">
+                    <a href="inquiries.html" class="btn-primary">Book Consultation</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-content">
+        <!-- Page Header -->
+        <section class="page-header">
+            <div class="container">
+                <h1 class="page-title">Private Consultation</h1>
+                <p class="page-subtitle">Experience personalized luxury styling with our fashion experts</p>
+            </div>
+        </section>
+
+        <!-- Inquiry Form -->
+        <section class="section inquiry-section">
+            <div class="container">
+                <div class="inquiry-container">
+                    <!-- Appointment Form -->
+                    <div class="inquiry-form-container">
+                        <h2 style="margin-bottom: 2rem; color: #222;">Book Your Appointment</h2>
+                        
+                        <form id="appointmentForm">
+                            <div class="form-group">
+                                <label class="form-label" for="name">Full Name *</label>
+                                <input type="text" id="name" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="email">Email Address *</label>
+                                <input type="email" id="email" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="phone">Phone Number</label>
+                                <input type="tel" id="phone" class="form-control">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="service">Service Type *</label>
+                                <select id="service" class="form-control" required>
+                                    <option value="">Select a service</option>
+                                    <option value="personal-styling">Personal Styling Session</option>
+                                    <option value="collection-preview">Collection Preview</option>
+                                    <option value="wedding-special">Wedding & Special Occasion</option>
+                                    <option value="corporate">Corporate Wardrobe</option>
+                                    <option value="custom-design">Custom Design Consultation</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="date">Preferred Date *</label>
+                                <input type="date" id="date" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="time">Preferred Time *</label>
+                                <select id="time" class="form-control" required>
+                                    <option value="">Select time</option>
+                                    <option value="10:00">10:00 AM</option>
+                                    <option value="11:30">11:30 AM</option>
+                                    <option value="14:00">2:00 PM</option>
+                                    <option value="15:30">3:30 PM</option>
+                                    <option value="17:00">5:00 PM</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="message">Additional Requests</label>
+                                <textarea id="message" class="form-control" placeholder="Tell us about your style preferences, special requirements, or questions..."></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <button type="submit" class="form-submit" id="submitBtn">
+                                    <span id="submitText">Book Appointment</span>
+                                    <span id="loadingSpinner" style="display: none;"><i class="fas fa-spinner fa-spin"></i> Processing...</span>
+                                </button>
+                            </div>
+                            
+                            <div class="success-message" id="successMessage">
+                                <i class="fas fa-check-circle"></i> Thank you! Your appointment request has been submitted. We'll contact you within 24 hours.
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Appointment Information -->
+                    <div class="inquiry-info">
+                        <h2 style="margin-bottom: 2rem; color: #222;">Why Book With Us?</h2>
+                        
+                        <div class="info-item">
+                            <h3><i class="fas fa-star"></i> Personalized Experience</h3>
+                            <p>One-on-one sessions with our expert stylists tailored to your unique style and preferences.</p>
+                        </div>
+                        
+                        <div class="info-item">
+                            <h3><i class="fas fa-clock"></i> Flexible Scheduling</h3>
+                            <p>Choose from morning, afternoon, or evening appointments to fit your busy schedule.</p>
+                        </div>
+                        
+                        <div class="info-item">
+                            <h3><i class="fas fa-gem"></i> Exclusive Preview</h3>
+                            <p>Be the first to see new collections before they're available to the public.</p>
+                        </div>
+                        
+                        <div class="info-item">
+                            <h3><i class="fas fa-percentage"></i> Special Offers</h3>
+                            <p>Receive 15% off your first purchase when you book a consultation.</p>
+                        </div>
+                        
+                        <div class="calendar-widget">
+                            <h3>Available This Week</h3>
+                            <div class="calendar-header">
+                                <button id="prevWeek"><i class="fas fa-chevron-left"></i></button>
+                                <span id="currentWeek">Week of March 10</span>
+                                <button id="nextWeek"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                            <div class="calendar-days" id="calendarDays">
+                                <!-- Days will be populated by JavaScript -->
+                            </div>
+                            <p style="font-size: 0.9rem; color: #666;">Select a date to see available times</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>Zoroca Wear</h3>
+                    <p>Redefining luxury fashion since 2025.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Collections</a></li>
+                        <li><a href="trustees.html">Our Trustees</a></li>
+                        <li><a href="inquiries.html">Book Appointment</a></li>
+                        <li><a href="events.html">Events Calendar</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-map-marker-alt"></i>  13 ibadan , Nigeria</p>
+                    <p><i class="fas fa-phone"></i> +2348106901310</p>
+                    <p><i class="fas fa-envelope"></i> zaroca@gmail.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Zoroca Wear. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('appointmentForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const submitText = document.getElementById('submitText');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        const successMessage = document.getElementById('successMessage');
+        const dateInput = document.getElementById('date');
+        const calendarDays = document.getElementById('calendarDays');
+        const currentWeekSpan = document.getElementById('currentWeek');
+        const prevWeekBtn = document.getElementById('prevWeek');
+        const nextWeekBtn = document.getElementById('nextWeek');
+        
+        // Set minimum date to today
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const dd = String(today.getDate()).padStart(2, '0');
+        dateInput.min = `${yyyy}-${mm}-${dd}`;
+        dateInput.value = `${yyyy}-${mm}-${dd}`; // Set default to today
+        
+        // Generate calendar days
+        function generateCalendar(startDate) {
+            calendarDays.innerHTML = '';
+            const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+            
+            // Display day headers
+            days.forEach(day => {
+                const dayHeader = document.createElement('div');
+                dayHeader.className = 'calendar-day';
+                dayHeader.style.fontWeight = '600';
+                dayHeader.style.color = '#666';
+                dayHeader.textContent = day;
+                calendarDays.appendChild(dayHeader);
+            });
+            
+            // Display dates
+            for (let i = 0; i < 7; i++) {
+                const currentDate = new Date(startDate);
+                currentDate.setDate(startDate.getDate() + i);
+                
+                const dayElement = document.createElement('div');
+                dayElement.className = 'calendar-day';
+                dayElement.textContent = currentDate.getDate();
+                dayElement.dataset.date = currentDate.toISOString().split('T')[0];
+                
+                // Highlight today
+                if (currentDate.toDateString() === today.toDateString()) {
+                    dayElement.style.backgroundColor = '#e6f7ff';
+                    dayElement.style.fontWeight = '600';
+                }
+                
+                // Highlight selected date
+                if (dateInput.value === dayElement.dataset.date) {
+                    dayElement.classList.add('selected');
+                }
+                
+                // Add click event
+                dayElement.addEventListener('click', function() {
+                    // Remove selected class from all days
+                    document.querySelectorAll('.calendar-day').forEach(day => {
+                        day.classList.remove('selected');
+                        day.style.fontWeight = '';
+                    });
+                    
+                    // Add selected class to clicked day
+                    this.classList.add('selected');
+                    this.style.fontWeight = '600';
+                    
+                    // Set the date input
+                    dateInput.value = this.dataset.date;
+                });
+                
+                calendarDays.appendChild(dayElement);
+            }
+            
+            // Update week display
+            const weekEnd = new Date(startDate);
+            weekEnd.setDate(startDate.getDate() + 6);
+            currentWeekSpan.textContent = `Week of ${formatDate(startDate)}`;
+        }
+        
+        function formatDate(date) {
+            const options = { month: 'short', day: 'numeric' };
+            return date.toLocaleDateString('en-US', options);
+        }
+        
+        // Initialize calendar with current week
+        const startOfWeek = new Date(today);
+        startOfWeek.setDate(today.getDate() - today.getDay() + 1); // Monday
+        generateCalendar(startOfWeek);
+        
+        // Week navigation
+        let currentWeekStart = startOfWeek;
+        
+        prevWeekBtn.addEventListener('click', function() {
+            currentWeekStart.setDate(currentWeekStart.getDate() - 7);
+            generateCalendar(new Date(currentWeekStart));
+        });
+        
+        nextWeekBtn.addEventListener('click', function() {
+            currentWeekStart.setDate(currentWeekStart.getDate() + 7);
+            generateCalendar(new Date(currentWeekStart));
+        });
+        
+        // Update calendar when date input changes
+        dateInput.addEventListener('change', function() {
+            const selectedDate = new Date(this.value);
+            const newStartOfWeek = new Date(selectedDate);
+            newStartOfWeek.setDate(selectedDate.getDate() - selectedDate.getDay() + 1);
+            
+            currentWeekStart = newStartOfWeek;
+            generateCalendar(newStartOfWeek);
+        });
+        
+        // Form validation function
+        function validateForm() {
+            let isValid = true;
+            const emailInput = document.getElementById('email');
+            const nameInput = document.getElementById('name');
+            const serviceInput = document.getElementById('service');
+            const timeInput = document.getElementById('time');
+            
+            // Reset error states
+            [emailInput, nameInput, serviceInput, timeInput].forEach(input => {
+                input.classList.remove('error');
+                const errorMsg = input.parentElement.querySelector('.error-message');
+                if (errorMsg) errorMsg.classList.remove('show');
+            });
+            
+            // Email validation
+            const email = emailInput.value.trim();
+            if (!email || !validateEmail(email)) {
+                emailInput.classList.add('error');
+                showError(emailInput, 'Please enter a valid email address');
+                isValid = false;
+            }
+            
+            // Name validation
+            const name = nameInput.value.trim();
+            if (!name || name.length < 2) {
+                nameInput.classList.add('error');
+                showError(nameInput, 'Please enter your full name');
+                isValid = false;
+            }
+            
+            // Service validation
+            if (!serviceInput.value) {
+                serviceInput.classList.add('error');
+                showError(serviceInput, 'Please select a service type');
+                isValid = false;
+            }
+            
+            // Time validation
+            if (!timeInput.value) {
+                timeInput.classList.add('error');
+                showError(timeInput, 'Please select a preferred time');
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        
+        function showError(input, message) {
+            let errorMsg = input.parentElement.querySelector('.error-message');
+            if (!errorMsg) {
+                errorMsg = document.createElement('div');
+                errorMsg.className = 'error-message';
+                input.parentElement.appendChild(errorMsg);
+            }
+            errorMsg.textContent = message;
+            errorMsg.classList.add('show');
+        }
+        
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+        
+        // Real-time validation
+        document.querySelectorAll('#appointmentForm input, #appointmentForm select').forEach(input => {
+            input.addEventListener('blur', function() {
+                if (this.id === 'email' && this.value) {
+                    if (!validateEmail(this.value)) {
+                        this.classList.add('error');
+                        showError(this, 'Please enter a valid email');
+                    } else {
+                        this.classList.remove('error');
+                        const errorMsg = this.parentElement.querySelector('.error-message');
+                        if (errorMsg) errorMsg.classList.remove('show');
+                    }
+                }
+            });
+        });
+        
+        // Form submission
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!validateForm()) {
+                return;
+            }
+            
+            // Show loading state
+            submitText.style.display = 'none';
+            loadingSpinner.style.display = 'inline';
+            loadingSpinner.classList.add('show');
+            submitBtn.disabled = true;
+            
+            // Simulate API call
+            setTimeout(() => {
+                // Show success message
+                successMessage.classList.add('show');
+                
+                // Log appointment (for demo)
+                const appointmentData = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                    service: document.getElementById('service').value,
+                    date: document.getElementById('date').value,
+                    time: document.getElementById('time').value,
+                    message: document.getElementById('message').value
+                };
+                console.log('Appointment booked:', appointmentData);
+                
+                // Reset button state
+                setTimeout(() => {
+                    submitText.style.display = 'inline';
+                    loadingSpinner.style.display = 'none';
+                    loadingSpinner.classList.remove('show');
+                    submitBtn.disabled = false;
+                    
+                    // Optionally reset form after success
+                    // form.reset();
+                    // generateCalendar(currentWeekStart); // Reset calendar
+                    
+                    // Scroll to success message
+                    successMessage.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'center' 
+                    });
+                }, 500);
+                
+                // Hide success message after 8 seconds
+                setTimeout(() => {
+                    successMessage.classList.remove('show');
+                }, 8000);
+            }, 1500);
+        });
+    });
+</script>
+</body>
+</html>
